@@ -12,4 +12,4 @@ try:
 except IOError:
     pass
 
-from blog.hello import app as application
+from hello import app as application
