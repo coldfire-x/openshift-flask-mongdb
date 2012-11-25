@@ -17,10 +17,10 @@ app.config['MONGODB_PORT'] = os.environ['OPENSHIFT_MONGODB_DB_PORT']
 # get db connection
 db = MongoEngine(app)
 
-
-@app.route("/")
-def hello():
-    return "Hello World!"
+def register_blueprints(app):
+    # Prevents circular imports
+    from views import posts
+    app.register_blueprint(posts)
 
 @app.route("/admin", methods=['GET', 'POST'])
 def admin():
@@ -31,4 +31,5 @@ def admin():
         return render_template('login.html')
 
 if __name__ == "__main__":
+    register_blueprints(app)
     app.run()
