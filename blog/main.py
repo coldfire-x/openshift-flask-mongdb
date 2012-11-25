@@ -21,6 +21,7 @@ def register_blueprints(app):
     # Prevents circular imports
     from views import posts
     app.register_blueprint(posts)
+register_blueprints(app)
 
 @app.route("/admin", methods=['GET', 'POST'])
 def admin():
