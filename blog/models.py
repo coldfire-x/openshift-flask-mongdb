@@ -3,7 +3,7 @@
 import datetime
 
 from flask import url_for
-from blog import db
+from blog.main import db
 
 
 class Post(db.Document):
