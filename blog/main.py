@@ -1,6 +1,5 @@
 # -*- coding: utf8 -*-
 import os
-import hashlib
 
 from flask import (Flask, render_template, request, redirect,
         session, escape, abort, url_for)
@@ -27,32 +26,10 @@ db = MongoEngine(app)
 def register_blueprints(app):
     # Prevents circular imports
     from views import posts
+    from admin import admin_login
     app.register_blueprint(posts)
+    app.register_blueprint(admin_login)
 register_blueprints(app)
-
-
-@app.route("/admin", methods=['GET', 'POST'])
-def admin():
-    error = None
-
-    if request.method == 'POST':
-        username = escape(request.form['username'])
-        password = escape(request.form['password'])
-        
-        pwmd5 = hashlib.md5(password).hexdigest()
-        
-        from models import Users
-        is_valid = Users.check_user_passwd(username, pwmd5)
-
-        if is_valid:
-            session['uid'] = username
-            return redirect('/')
-
-        else:
-            error = 'Invalid credentials'
-
-    return render_template('login.html', error=error)
-
 
 if __name__ == "__main__":
     app.run()
