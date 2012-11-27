@@ -2,8 +2,8 @@
 import os
 import hashlib
 
-from flask import (Flask, render_template, request,
-        session, escape, abort)
+from flask import (Flask, render_template, request, redirect,
+        session, escape, abort, url_for)
 from flask.ext.mongoengine import MongoEngine
 
 app = Flask(__name__)
@@ -31,6 +31,8 @@ register_blueprints(app)
 
 @app.route("/admin", methods=['GET', 'POST'])
 def admin():
+    error = None
+
     if request.method == 'POST':
         username = escape(request.form['username'])
         password = escape(request.form['password'])
@@ -42,16 +44,12 @@ def admin():
 
         if is_valid:
             session['uid'] = username
-            return 'Bingo, You are in!'
+            return redirect('/')
 
         else:
-            abort(403)
-    else:
-        if 'uid' in session:
-            return 'Bingo, You have already in!'
+            error = 'Invalid credentials'
 
-        else:
-            return render_template('login.html')
+    return render_template('login.html', error=error)
 
 
 if __name__ == "__main__":

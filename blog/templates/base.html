@@ -4,17 +4,19 @@
     <meta charset="utf-8">
     <title>Pengfei Xue</title>
     <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
     <style>.content {padding-top: 80px;}</style>
   </head>
 
   <body>
 
     {%- block topbar -%}
-    <div class="topbar">
-      <div class="fill">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
         <div class="container">
           <h2>
-              <a href="/" class="brand">Pengfei Xue</a> <small>Starring Flask, MongoDB and MongoEngine</small>
+              <a href="/" class="brand">Pengfei Xue</a> 
+              <a class="brand">Starring to record my life here!</a>
           </h2>
         </div>
       </div>
@@ -22,11 +24,12 @@
     {%- endblock -%}
 
     <div class="container">
-      <div class="content">
+        <div class="content">
         {% block page_header %}{% endblock %}
         {% block content %}{% endblock %}
       </div>
     </div>
-    {% block js_footer %}{% endblock %}
+    {% block js_footer %}
+    {% endblock %}
   </body>
 </html>
