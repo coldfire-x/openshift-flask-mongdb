@@ -31,3 +31,23 @@ class Comment(db.EmbeddedDocument):
     created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
     body = db.StringField(verbose_name="Comment", required=True)
     author = db.StringField(verbose_name="Name", max_length=255, required=True)
+
+
+class Users(db.Document):
+    username = db.StringField(required=True)
+    password = db.StringField(required=True)
+    first_name = db.StringField(max_length=50)
+    last_name = db.StringField(max_length=50)
+
+    @classmethod
+    def check_user_passwd(cls, username, password):
+        is_valid = None
+
+        try:
+            Users.objects.get(username=username, password=password)
+        except Users.DoesNotExist:
+            is_valid = False
+        else:
+            is_valid = True
+
+        return is_valid

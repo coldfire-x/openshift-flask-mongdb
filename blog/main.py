@@ -1,11 +1,16 @@
 # -*- coding: utf8 -*-
 import os
+import hashlib
 
-from flask import Flask, render_template
+from flask import (Flask, render_template, request,
+        session, escape, abort)
 from flask.ext.mongoengine import MongoEngine
 
 app = Flask(__name__)
 app.debug = True
+
+# set app secrete for session
+app.secret_key = '=5NO>NO>a"Tj4=^#~Co^T#fD_b!-&J'
 
 # mongodb configuration
 app.config['MONGODB_DB'] = os.environ['OPENSHIFT_APP_NAME']
@@ -23,14 +28,26 @@ def register_blueprints(app):
     app.register_blueprint(posts)
 register_blueprints(app)
 
+
 @app.route("/admin", methods=['GET', 'POST'])
 def admin():
     if request.method == 'POST':
-        do_the_login()
+        username = escape(request.form['username'])
+        password = escape(request.form['password'])
+        
+        pwmd5 = hashlib.md5(password).hexdigest()
+        
+        from models import Users
+        is_valid = Users.check_user_passwd(username, pwmd5)
 
+        if is_valid:
+            return 'Bingo, You are in!'
+
+        else:
+            abort(403)
     else:
         return render_template('login.html')
 
+
 if __name__ == "__main__":
-    register_blueprints(app)
     app.run()
