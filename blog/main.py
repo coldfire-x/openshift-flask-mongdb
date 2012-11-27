@@ -41,12 +41,17 @@ def admin():
         is_valid = Users.check_user_passwd(username, pwmd5)
 
         if is_valid:
+            session['uid'] = username
             return 'Bingo, You are in!'
 
         else:
             abort(403)
     else:
-        return render_template('login.html')
+        if 'uid' in session:
+            return 'Bingo, You have already in!'
+
+        else:
+            return render_template('login.html')
 
 
 if __name__ == "__main__":
