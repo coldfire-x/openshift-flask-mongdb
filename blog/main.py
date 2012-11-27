@@ -7,7 +7,9 @@ from flask import (Flask, render_template, request, redirect,
 from flask.ext.mongoengine import MongoEngine
 
 app = Flask(__name__)
-app.debug = True
+
+debug = os.environ.get('FLASK_DEBUG', False)
+app.debug = True if debug else False
 
 # set app secrete for session
 app.secret_key = '=5NO>NO>a"Tj4=^#~Co^T#fD_b!-&J'
