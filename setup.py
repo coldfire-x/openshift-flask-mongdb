@@ -16,5 +16,6 @@ setup(name='life-map',
         'Jinja2==2.6',
         'WTForms==1.0.2',
         'Werkzeug==0.8.3',
+        'argparse==1.2.1',
       ],
      )
