@@ -35,8 +35,6 @@ class AdminLogin(MethodView):
 
 
 class Admin(MethodView):
-    decorators = [login_required, ]
-
     def get(self):
         return render_template('editor.html')
 
@@ -44,4 +42,4 @@ class Admin(MethodView):
 admin = Blueprint('admin', __name__, template_folder='templates')
 admin.add_url_rule('/admin', view_func=AdminLogin.as_view('login'))
 
-admin.add_url_rule('/admin/editor', view_func=Admin.as_view('editor'))
+admin.add_url_rule('/admin/editor', view_func=login_required(Admin.as_view('editor')))
