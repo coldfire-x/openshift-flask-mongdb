@@ -6,12 +6,13 @@ from flask import (Blueprint, request, redirect, session,
 from flask.views import MethodView
 
 from models import Users
-
+from utilities import login_required
+     
 
 class AdminLogin(MethodView):
     def get(self):
         if 'uid' in session:
-            return redirect('/')
+            return redirect(url_for('.editor'))
 
         else:
             return render_template('login.html')
@@ -25,7 +26,7 @@ class AdminLogin(MethodView):
         is_valid = Users.check_user_passwd(username, passwd_md5)
         if is_valid:
             session['uid'] = username
-            return redirect('/')
+            return redirect(url_for('.editor'))
 
         else:
             error = 'Invalid credentials'
@@ -33,6 +34,14 @@ class AdminLogin(MethodView):
         return render_template('login.html', error=error)
 
 
-admin_login = Blueprint('admin_login', __name__,
-                        template_folder='templates')
-admin_login.add_url_rule('/admin', view_func=AdminLogin.as_view('admin'))
+class Admin(MethodView):
+    decorators = [login_required, ]
+
+    def get(self):
+        return render_template('editor.html')
+
+
+admin = Blueprint('admin', __name__, template_folder='templates')
+admin.add_url_rule('/admin', view_func=AdminLogin.as_view('login'))
+
+admin.add_url_rule('/admin/editor', view_func=Admin.as_view('editor'))

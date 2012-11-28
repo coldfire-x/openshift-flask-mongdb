@@ -1,8 +1,7 @@
 # -*- coding: utf8 -*-
 import os
 
-from flask import (Flask, render_template, request, redirect,
-        session, escape, abort, url_for)
+from flask import Flask
 from flask.ext.mongoengine import MongoEngine
 
 app = Flask(__name__)
@@ -26,9 +25,9 @@ db = MongoEngine(app)
 def register_blueprints(app):
     # Prevents circular imports
     from views.postViews import posts
-    from views.admin import admin_login
+    from views.admin import admin
     app.register_blueprint(posts)
-    app.register_blueprint(admin_login)
+    app.register_blueprint(admin)
 register_blueprints(app)
 
 if __name__ == "__main__":
