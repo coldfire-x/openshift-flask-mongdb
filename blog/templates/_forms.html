@@ -8,7 +8,7 @@
     {{ field.label }}
     <div class="input">
       {% if field.name == "body" %}
-        {{ field(rows=10, cols=40) }}
+        {{ field(cols=80, rows=6, class="span6") }}
       {% else %}
         {{ field() }}
       {% endif %}
