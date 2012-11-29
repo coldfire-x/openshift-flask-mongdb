@@ -16,6 +16,9 @@
         <div class="container">
             <a href="/" class="brand">Pengfei Xue</a> 
             <span class="navbar-text">Starring to record my life here!</span>
+            {% if 'uid' in session %}
+                <a href="{{ url_for('posts.new') }}" class="btn btn-primary pull-right">New Post</a>
+            {% endif %}
         </div>
       </div>
     </div>

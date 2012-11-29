@@ -1,6 +1,7 @@
 # -*- coding: utf8 -*-
 import hashlib
 
+import flask
 from flask import (Blueprint, request, redirect, session,
     render_template, url_for, escape)
 from flask.views import MethodView
@@ -11,13 +12,12 @@ from utilities import login_required
 
 class AdminLogin(MethodView):
     def get(self):
-        if 'uid' in session:
-            return redirect(url_for('.editor'))
-
-        else:
+        if not 'uid' in session:
             return render_template('login.html')
+        
+        else:
+            return redirect(url_for('.console'))
             
-
     def post(self):
         username = escape(request.form['username'])
         password = escape(request.form['password'])
@@ -26,7 +26,7 @@ class AdminLogin(MethodView):
         is_valid = Users.check_user_passwd(username, passwd_md5)
         if is_valid:
             session['uid'] = username
-            return redirect(url_for('.editor'))
+            return redirect(url_for('.console'))
 
         else:
             error = 'Invalid credentials'
@@ -34,12 +34,11 @@ class AdminLogin(MethodView):
         return render_template('login.html', error=error)
 
 
-class Admin(MethodView):
+class AdminConsole(MethodView):
     def get(self):
-        return render_template('editor.html')
+        return redirect(url_for('posts.list'))
 
 
 admin = Blueprint('admin', __name__, template_folder='templates')
-admin.add_url_rule('/admin', view_func=AdminLogin.as_view('login'))
-
-admin.add_url_rule('/admin/editor', view_func=login_required(Admin.as_view('editor')))
+admin.add_url_rule('/admin/console', view_func=login_required(AdminConsole.as_view('console')))
+admin.add_url_rule('/admin/login', view_func=AdminLogin.as_view('login'))

@@ -5,6 +5,7 @@ from flask.views import MethodView
 from flask.ext.mongoengine.wtf import model_form
 
 from models import Post, Comment
+from utilities import login_required
 
 posts = Blueprint('posts', __name__, template_folder='templates')
 
@@ -49,8 +50,27 @@ class DetailView(MethodView):
 
         return render_template('posts/detail.html', **context)
 
+class NewPostView(MethodView):
+    form = model_form(Post, 
+        exclude=('created_at', 'comments'))
+
+    def get(self):
+        return render_template('posts/new.html', form=self.form())
+
+    def post(self):
+        form = self.form(request.form)
+
+        if form.validate():
+            post = Post()
+            form.populate_obj(post)
+            post.save()
+
+            return redirect(url_for('.list'))
+
+        return redirect(url_for('.list'))
 
 
 # Register the urls
 posts.add_url_rule('/', view_func=ListView.as_view('list'))
-posts.add_url_rule('/<slug>/', view_func=DetailView.as_view('detail'))
+posts.add_url_rule('/posts/<slug>/', view_func=DetailView.as_view('detail'))
+posts.add_url_rule('/posts/new', view_func=login_required(NewPostView.as_view('new')))

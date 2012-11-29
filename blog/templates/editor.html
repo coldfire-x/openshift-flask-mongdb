@@ -2,9 +2,15 @@
 
 <div id=text-edit-container>
 <form id="form-editor" method="post">
-    <textarea id="editor" name="editor" rows="20" cols="75">
+    {{ form.hidden_tag() }}
+    <div class="span3">
+        <input class="input-block-level" type="text" name="title" placeholder="文章标题"></input>
+        <input class="input-block-level" type="text" name="slug" placeholder="slug"></input>
+    </div>
+    <textarea id="editor" name="body" rows="20" style="width: 60%;">
     </textarea>
 
+    <p><br>
     <button class="btn btn-large btn-primary" type="submit">Post This blog</button>
 </form>
     
