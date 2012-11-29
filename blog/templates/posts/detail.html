@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-  <p>{{ post.body }}<p>
+  <p>{{ post.body | safe }}<p>
   <p>{{ post.created_at.strftime('%H:%M %Y-%m-%d') }}</p>
   <hr>
   <h2>Comments</h2>
