@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block css_header %}
+    <link href="/static/css/highlight/default.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div id=text-edit-container>
+    <form id="form-editor" method="post">
+        {{ form.hidden_tag() }}
+        <div class="span3">
+            <input class="input-block-level" type="text" name="title" value="{{ post.title }}"></input>
+            <input class="input-block-level" type="text" name="slug" value="{{ post.slug }}"></input>
+        </div>
+        <textarea id="editor" name="body" rows="20" style="width: 60%;">
+            {{ post.body }}
+        </textarea>
+    
+        <p><br>
+        <button class="btn btn-large btn-primary" type="submit">Update This blog</button>
+    </form>
+{% endblock %}
+
+{% block js_footer %}
+    <script src="/static/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/static/js/nicEdit-latest.js" type="text/javascript"></script>
+    <script>
+            bkLib.onDomLoaded(function() {
+                new nicEditor({ fullPanel: true }).panelInstance('editor');
+            });
+    </script>
+{% endblock %}

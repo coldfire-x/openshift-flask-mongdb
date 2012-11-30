@@ -65,8 +65,6 @@ class NewPostView(MethodView):
             form.populate_obj(post)
             post.save()
 
-            return redirect(url_for('.list'))
-
         return redirect(url_for('.list'))
 
 
