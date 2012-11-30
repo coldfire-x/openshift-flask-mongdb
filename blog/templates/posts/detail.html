@@ -1,6 +1,10 @@
 {% import "_forms.html" as forms %}
 {% extends "base.html" %}
 
+{% block css_header %}
+    <link href="/static/css/highlight/default.css" rel="stylesheet">
+{% endblock %}
+
 {% block page_header %}
   <div class="page-header">
     <h1>{{ post.title }}</h1>
@@ -27,4 +31,9 @@
             <input type="submit" class="btn primary" value="comment">
         </div>
     </form>
+{% endblock %}
+
+{% block js_footer %}
+    <script src="/static/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 {% endblock %}
