@@ -1,0 +1,27 @@
+.footer p img {
+    height:32px;
+    width: 32px;
+}
+
+.footer p a {
+    height:32px;
+}
+
+.footer {
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+@media (max-width: 767px) {
+    .footer {
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+.footer .container {
+    margin-top: 20px;
+    padding-top: 20px;
+}

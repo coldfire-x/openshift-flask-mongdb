@@ -15,9 +15,6 @@
   <p>{{ post.body | safe }}<p>
   <div class="row-fluid">
     <div class="row-fluid">
-        <wb:share-button type="button"></wb:share-button>
-    </div>
-    <div class="row-fluid">
         {{ post.created_at.strftime('%H:%M %Y-%m-%d') }}
     </div>
   </div>
@@ -41,7 +38,6 @@
 {% endblock %}
 
 {% block js_footer %}
-    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=3522479363" type="text/javascript" charset="utf-8"></script>
     <script src="/static/js/highlight.pack.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 {% endblock %}

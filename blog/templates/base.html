@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:wb="http://open.weibo.com/wb">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <title>Pengfei Xue</title>
     <link href="/static/css/bootstrap/bootstrap.css" rel="stylesheet">
     <link href="/static/css/bootstrap/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/static/css/blog.css" rel="stylesheet">
     <style>.content {padding-top: 80px;}</style>
 
     {% block css_header %}
@@ -31,6 +32,13 @@
         <div class="content" style="width:61.8%">
             {% block page_header %}{% endblock %}
             {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <img src="/static/images/sina_32x32.png">
+            <a href="http://weibo.com/u/1774807923"><span>Pengfei Xue</span></a>
         </div>
     </div>
 
