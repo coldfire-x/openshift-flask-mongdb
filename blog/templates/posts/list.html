@@ -2,13 +2,15 @@
 
 {% block content %}
     {% for post in posts %}
-      <h2><a href="{{ url_for('posts.detail', slug=post.slug) }}">{{ post.title }}</a></h2>
-      <p>{{ post.body | striptags | truncate(100) }}</p>
-      <p>
-        {{ post.created_at.strftime('%H:%M %Y-%m-%d') }} |
-        {% with total=post.comments|length %}
-            {{ total }} comment {%- if total > 1 %}s{%- endif -%}
-        {% endwith %}
-      </p>
+        <div class="hero-unit">
+        <h3><a href="{{ url_for('posts.detail', slug=post.slug) }}">{{ post.title }}</a></h2>
+        <p>{{ post.body | striptags | truncate(100) }}</p>
+        <p>
+            {{ post.created_at.strftime('%H:%M %Y-%m-%d') }} |
+            {% with total=post.comments|length %}
+                {{ total }} comment {%- if total > 1 %}s{%- endif -%}
+            {% endwith %}
+        </p>
+        </div>
     {% endfor %}
 {% endblock %}

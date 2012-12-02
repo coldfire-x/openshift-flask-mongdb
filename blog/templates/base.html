@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:wb="http://open.weibo.com/wb">
   <head>
     <meta charset="utf-8">
     <title>Pengfei Xue</title>
@@ -29,10 +29,11 @@
 
     <div class="container">
         <div class="content" style="width:61.8%">
-        {% block page_header %}{% endblock %}
-        {% block content %}{% endblock %}
-      </div>
+            {% block page_header %}{% endblock %}
+            {% block content %}{% endblock %}
+        </div>
     </div>
+
     {% block js_footer %}
     {% endblock %}
   </body>
