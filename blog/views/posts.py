@@ -9,6 +9,13 @@ from utilities import login_required
 
 posts = Blueprint('posts', __name__, template_folder='templates')
 
+def check_slug_uniq(slug):
+    try:
+        post = Post.objects.get(slug=slug)
+    except Post.DoesNotExist:
+        return True
+    else:
+        return False
 
 class ListView(MethodView):
 
