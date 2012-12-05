@@ -2,42 +2,55 @@
 {% extends "base.html" %}
 
 {% block css_header %}
-    <link href="/static/css/highlight/default.css" rel="stylesheet">
+<link href="/static/css/highlight/default.css" rel="stylesheet">
+{% endblock %}
+
+{% block sidebar %}
+<div class="span2"></div>
 {% endblock %}
 
 {% block page_header %}
-  <div class="page-header">
+<div class="page-header">
     <h1>{{ post.title }}</h1>
-  </div>
+</div>
 {% endblock %}
 
 {% block content %}
-  <p>{{ post.body | safe }}<p>
-  <div class="row-fluid">
-    <div class="row-fluid">
-        {{ post.created_at.strftime('%H:%M %Y-%m-%d') }}
-    </div>
-  </div>
-  <hr>
-  <h2>Comments</h2>
-  {% if post.comments %}
+<p>{{ post.body | safe }}<p>
+<div class="row-fluid">
+<div class="span3">
+    {{ post.created_at.strftime('%Y-%m-%d %H:%M') }}
+</div>
+
+<div class="span4">
+    {% if post.tags %}
+        {{ post.tags }}
+    {% else %}
+        <strong><a>未分类</a></strong>
+    {% endif %}
+</div>
+</div>
+<hr>
+<h2>Comments</h2>
+{% if post.comments %}
     {% for comment in post.comments %}
        <p>{{ comment.body }}</p>
        <p><strong>{{ comment.author }}</strong> <small>on {{ comment.created_at.strftime('%H:%M %Y-%m-%d') }}</small></p>
       {{ comment.text }}
     {% endfor %}
-  {% endif %}
-  <hr>
-  <h2>Add a comment</h2>
-    <form action="." method="post">
-        {{ forms.render(form) }}
-        <div class="actions">
-            <input type="submit" class="btn primary" value="comment">
-        </div>
-    </form>
+{% endif %}
+<hr>
+
+<h2>Add a comment</h2>
+<form action="." method="post">
+{{ forms.render(form) }}
+    <div class="actions">
+        <input type="submit" class="btn primary" value="comment">
+    </div>
+</form>
 {% endblock %}
 
 {% block js_footer %}
-    <script src="/static/js/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+<script src="/static/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 {% endblock %}
