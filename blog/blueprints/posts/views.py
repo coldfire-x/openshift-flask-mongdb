@@ -20,9 +20,10 @@ def check_slug_uniq(slug):
         return False
 
 
+@posts.route('/list/', defaults={'mode':'normal'})
 @posts.route('/list/<string:mode>')
 def list(mode):
-    if mode is 'edit':
+    if mode is 'edit' and 'uid' not in session:
         return redirect(url_for('admin.login'))
 
     posts = Post.objects.all()
@@ -80,7 +81,7 @@ class NewPostView(MethodView):
             post = Post()
             form.populate_obj(post)
 
-            tags = list(set([x.strip().lower() for x in tags.split(',')]))
+            tags = [ele for ele in set(x.strip().lower() for x in tags.split(','))]
             post['tags'] = tags
 
             post.save()
@@ -102,11 +103,6 @@ class EditPost(MethodView):
         form = self.form(request.form)
         tags = request.form['tags'] if request.form['tags'] else ''
 
-        print tags
-        print tags.split(',')
-        for i in tags.split(','):
-            print i.strip().lower()
-
         if form.validate():
             now = datetime.now()
 
@@ -120,7 +116,7 @@ class EditPost(MethodView):
 
             post.save()
 
-        return redirect(url_for('.list', mode='normal'))
+        return redirect(url_for('.list'))
 
 # Register the urls
 posts.add_url_rule('/<slug>/', view_func=DetailView.as_view('detail'))
