@@ -4,6 +4,10 @@
 <link href="/static/css/highlight/default.css" rel="stylesheet">
 {% endblock %}
 
+{% block sidebar %}
+<div class="span2"></div>
+{% endblock %}
+
 {% block content %}
 <div id=text-edit-container>
 <form id="form-editor" method="post">
@@ -11,6 +15,7 @@
     <div class="span3">
         <input class="input-block-level" type="text" name="title" value="{{ post.title }}"></input>
         <input class="input-block-level" type="text" name="slug" value="{{ post.slug }}"></input>
+        <input class="input-block-level" type="text" name="tags" value="{{ post.tags | join(', ') or '' }}"></input>
     </div>
     <textarea id="editor" name="body" rows="20" style="width: 60%;">
         {{ post.body }}

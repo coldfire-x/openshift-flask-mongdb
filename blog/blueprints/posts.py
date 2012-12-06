@@ -20,7 +20,7 @@ def check_slug_uniq(slug):
 class ListView(MethodView):
 
     def get(self):
-        posts = Post.objects.all()
+        posts = Post.objects.all().order_by('-updated_at')
         return render_template('posts/list.html', posts=posts)
 
 
@@ -59,17 +59,22 @@ class DetailView(MethodView):
 
 class NewPostView(MethodView):
     form = model_form(Post, 
-        exclude=('created_at', 'comments'))
+        exclude=('created_at', 'comments', 'updated_at'))
 
     def get(self):
         return render_template('posts/new.html', form=self.form())
 
     def post(self):
         form = self.form(request.form)
+        tags = request.form['tags'] if request.form['tags'] else ''
 
         if form.validate():
             post = Post()
             form.populate_obj(post)
+
+            tags = list(set([x.strip().lower() for x in tags.split(',')]))
+            post['tags'] = tags
+
             post.save()
 
         return redirect(url_for('.list'))

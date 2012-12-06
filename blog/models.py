@@ -6,14 +6,13 @@ from flask import url_for
 
 from main import db
 
-
 class Post(db.Document):
     created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
     updated_at = db.DateTimeField(default=datetime.datetime.now, required=True)
     title = db.StringField(max_length=255, required=True)
     slug = db.StringField(max_length=255, required=True)
     body = db.StringField(required=True)
-    tags = db.ListField(db.StringField(max_length=30))
+    tags = db.ListField(db.StringField(max_length=60), default=[])
     comments = db.ListField(db.EmbeddedDocumentField('Comment'))
 
     def get_absolute_url(self):

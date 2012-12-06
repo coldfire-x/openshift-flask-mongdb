@@ -1,5 +1,6 @@
 # -*- coding: utf8 -*-
 import hashlib
+from datetime import datetime
 
 import flask
 from flask import (Blueprint, request, redirect, session,
@@ -42,7 +43,7 @@ class AdminConsole(MethodView):
 
 class AdminEditPost(MethodView):
     form = model_form(Post, 
-        exclude=('created_at', 'comments'))
+        exclude=('created_at', 'comments', 'updated_at'))
 
     def get(self, slug):
         post = Post.objects.get_or_404(slug=slug)
@@ -52,11 +53,19 @@ class AdminEditPost(MethodView):
     def post(self, slug):
         post = Post.objects.get_or_404(slug=slug)
         form = self.form(request.form)
+        tags = request.form['tags'] if request.form['tags'] else ''
 
         if form.validate():
+            now = datetime.now()
+
             for field in ['slug', 'title', 'body']:
                 post[field] = form[field].data
-    
+
+            tags = list(set([x.strip().lower() for x in tags.split(',')]))
+            post['tags'] = tags
+
+            post['updated_at'] = now
+
             post.save()
 
         return redirect(url_for('posts.list'))
