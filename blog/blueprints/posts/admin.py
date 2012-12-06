@@ -36,11 +36,6 @@ class AdminLogin(MethodView):
         return render_template('admin/login.html', error=error)
 
 
-class AdminConsole(MethodView):
-    def get(self):
-        posts = Post.objects.all()
-        return render_template('admin/post_list.html', posts=posts)
-
 class AdminEditPost(MethodView):
     form = model_form(Post, 
         exclude=('created_at', 'comments', 'updated_at'))

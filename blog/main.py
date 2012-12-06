@@ -1,34 +1,27 @@
 # -*- coding: utf8 -*-
 import os
 
-from flask import Flask
+from flask import Flask, url_for, redirect
 from flask.ext.mongoengine import MongoEngine
 
+# NOTE : tricky here, import self otherwise there will be
+#        import cycle issue
+import main
+
 app = Flask(__name__)
-
-debug = os.environ.get('FLASK_DEBUG', False)
-app.debug = True if debug else False
-
-# set app secrete for session
-app.secret_key = '=5NO>NO>a"Tj4=^#~Co^T#fD_b!-&J'
-
-# mongodb configuration
-app.config['MONGODB_DB'] = os.environ['OPENSHIFT_APP_NAME']
-app.config['MONGODB_USERNAME'] = os.environ['OPENSHIFT_MONGODB_DB_USERNAME']
-app.config['MONGODB_PASSWORD'] = os.environ['OPENSHIFT_MONGODB_DB_PASSWORD']
-app.config['MONGODB_HOST'] = os.environ['OPENSHIFT_MONGODB_DB_HOST']
-app.config['MONGODB_PORT'] = os.environ['OPENSHIFT_MONGODB_DB_PORT']
+app.config.from_object('settings')
 
 # get db connection
 db = MongoEngine(app)
 
-def register_blueprints(app):
-    # Prevents circular imports
-    from blueprints.posts import posts
-    from blueprints.admin import admin
-    app.register_blueprint(posts)
-    app.register_blueprint(admin)
-register_blueprints(app)
+from blueprints.admin.views import admin
+from blueprints.posts.views import posts
+app.register_blueprint(admin, url_prefix='/admin')
+app.register_blueprint(posts, url_prefix='/posts')
+
+@app.route('/')
+def index():
+    return redirect(url_for('posts.list', mode='normal'))
 
 if __name__ == "__main__":
     app.run()

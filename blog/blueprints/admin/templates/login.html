@@ -4,6 +4,7 @@
     <title>life-backend</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/static/css/bootstrap/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/bootstrap/bootstrap-responsive.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 40px;
@@ -36,17 +37,19 @@
         padding: 7px 9px;
       }
     </style>
-    <link href="/static/css/bootstrap/bootstrap-responsive.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
       <form class="form-signin" method="post">
+        {% if error %}
+        <div class="alert alert-error">
+            {{ error }}
+        </div>
+        {% else %}
         <h2 class="form-signin-heading">Please Sign In</h2>
+        {% endif %}
         <input type="text" name="username" class="input-block-level" placeholder="Email address">
         <input type="password" name="password" class="input-block-level" placeholder="Password">
-        <label class="checkbox">
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
         <button class="btn btn-large btn-primary" type="submit">Sign in</button>
       </form>
     </div>
