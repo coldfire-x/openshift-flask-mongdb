@@ -49,3 +49,7 @@ form .clearfix.error .input-append .add-on {
     border-top: 1px solid #e5e5e5;
     background-color: #f5f5f5;
 }
+
+.font-cute {
+    font-family:'Lucida Casual', 'Comic Sans MS';
+}
