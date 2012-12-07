@@ -41,12 +41,13 @@
 <body>
     <div class="container">
       <form class="form-signin" method="post">
-        {% if error %}
-        <div class="alert alert-error">
-            {{ error }}
-        </div>
-        {% else %}
         <h2 class="form-signin-heading">Please Sign In</h2>
+        {% if error %}
+        <div class="alert alert-message alert-error">
+            <ul class="errorlist">
+                <li>{{ error }}</li>
+            </ul>
+        </div>
         {% endif %}
         <input type="text" name="username" class="input-block-level" placeholder="Email address">
         <input type="password" name="password" class="input-block-level" placeholder="Password">
