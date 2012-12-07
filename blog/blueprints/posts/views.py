@@ -7,7 +7,7 @@ from flask.views import MethodView
 from flask.ext.mongoengine.wtf import model_form
 
 from models import Post, Comment
-from utilities import login_required
+from utilities import login_required, uniq_list
 
 posts = Blueprint('posts', __name__, template_folder='templates')
 
@@ -81,7 +81,7 @@ class NewPostView(MethodView):
             post = Post()
             form.populate_obj(post)
 
-            tags = [ele for ele in set(x.strip().lower() for x in tags.split(','))]
+            tags = uniq_list(tags, ',')
             post['tags'] = tags
 
             post.save()
@@ -109,7 +109,7 @@ class EditPost(MethodView):
             for field in ['slug', 'title', 'body']:
                 post[field] = form[field].data
 
-            tags = [ele for ele in set(x.strip().lower() for x in tags.split(','))]
+            tags = uniq_list(tags, ',')
             post['tags'] = tags
 
             post['updated_at'] = now

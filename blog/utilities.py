@@ -9,3 +9,9 @@ def login_required(func):
             return redirect(url_for('admin.login'))
         return func(*args, **kwargs)
     return wrappered_func
+
+def uniq_list(list_in, sep):
+    new_list = [ele for ele in set(x.strip().lower() 
+        for x in list_in.split(sep))]
+
+    return new_list
