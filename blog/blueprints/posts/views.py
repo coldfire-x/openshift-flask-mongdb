@@ -20,11 +20,18 @@ def check_slug_uniq(slug):
         return False
 
 
-def list_posts(mode):
-    posts = Post.objects.all()
-    template = 'edit_list.html' if mode is 'edit' else 'normal_list.html'
+@posts.route('/')
+def index():
+    page = request.args.get('page', 1)
+    paginated_posts = Post.objects.paginate(page=int(page), per_page=6)
+    return render_template('normal_list.html', pagination=paginated_posts)
 
-    return render_template(template, posts=posts)
+
+@posts.route('/admin/posts/')
+@login_required
+def list_posts():
+    posts = Post.objects.all()
+    return render_template('edit_list.html', posts=posts)
 
 
 class DetailView(MethodView):
@@ -117,5 +124,3 @@ class EditPost(MethodView):
 posts.add_url_rule('/posts/<slug>/', view_func=DetailView.as_view('detail'))
 posts.add_url_rule('/posts/new', view_func=login_required(NewPostView.as_view('new')))
 posts.add_url_rule('/posts/<slug>/edit',view_func=login_required(EditPost.as_view('edit')))
-posts.add_url_rule('/', 'index', view_func=list_posts, defaults={'mode':'normal'})
-posts.add_url_rule('/admin/posts/', 'list', view_func=login_required(list_posts), defaults={'mode':'edit'})

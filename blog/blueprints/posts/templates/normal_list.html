@@ -1,7 +1,8 @@
+{% import "_paginate.html" as paginate %}
 {% extends "base.html" %}
 
 {% block content %}
-    {% for post in posts %}
+    {% for post in pagination.items %}
     <div class="hero-unit">
     <h3><a href="{{ url_for('posts.detail', slug=post.slug) }}">{{ post.title }}</a></h2>
     <p>{{ post.body | striptags | truncate(100) }}</p>
@@ -13,4 +14,6 @@
     </p>
     </div>
     {% endfor %}
+
+    {{ paginate.render(pagination, 'posts.index') }}
 {% endblock %}

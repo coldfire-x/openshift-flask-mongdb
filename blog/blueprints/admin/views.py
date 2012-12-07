@@ -42,7 +42,7 @@ class AdminLogin(MethodView):
 @admin.route('/console')
 @login_required
 def console():
-    return redirect(url_for('posts.list', mode='edit'))
+    return redirect(url_for('posts.index'))
 
 admin.add_url_rule('/', view_func=AdminLogin.as_view('login'))
 admin.add_url_rule('/login', view_func=AdminLogin.as_view('login'))
