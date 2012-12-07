@@ -88,7 +88,7 @@ class NewPostView(MethodView):
 
             post.save()
 
-        return redirect(url_for('.list'))
+        return redirect(url_for('.index'))
 
 
 class EditPost(MethodView):
@@ -118,7 +118,7 @@ class EditPost(MethodView):
 
             post.save()
 
-        return redirect(url_for('.list'))
+        return redirect(url_for('.index'))
 
 # Register the urls
 posts.add_url_rule('/posts/<slug>/', view_func=DetailView.as_view('detail'))
