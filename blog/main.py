@@ -17,11 +17,7 @@ db = MongoEngine(app)
 from blueprints.admin.views import admin
 from blueprints.posts.views import posts
 app.register_blueprint(admin, url_prefix='/admin')
-app.register_blueprint(posts, url_prefix='/posts')
-
-@app.route('/')
-def index():
-    return redirect(url_for('posts.list', mode='normal'))
+app.register_blueprint(posts)
 
 if __name__ == "__main__":
     app.run()

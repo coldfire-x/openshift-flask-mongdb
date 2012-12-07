@@ -20,12 +20,7 @@ def check_slug_uniq(slug):
         return False
 
 
-@posts.route('/list/', defaults={'mode':'normal'})
-@posts.route('/list/<string:mode>')
-def list(mode):
-    if mode is 'edit' and 'uid' not in session:
-        return redirect(url_for('admin.login'))
-
+def list_posts(mode):
     posts = Post.objects.all()
     template = 'edit_list.html' if mode is 'edit' else 'normal_list.html'
 
@@ -119,6 +114,8 @@ class EditPost(MethodView):
         return redirect(url_for('.list'))
 
 # Register the urls
-posts.add_url_rule('/<slug>/', view_func=DetailView.as_view('detail'))
-posts.add_url_rule('/new', view_func=login_required(NewPostView.as_view('new')))
-posts.add_url_rule('/<slug>/edit',view_func=login_required(EditPost.as_view('edit')))
+posts.add_url_rule('/posts/<slug>/', view_func=DetailView.as_view('detail'))
+posts.add_url_rule('/posts/new', view_func=login_required(NewPostView.as_view('new')))
+posts.add_url_rule('/posts/<slug>/edit',view_func=login_required(EditPost.as_view('edit')))
+posts.add_url_rule('/', 'index', view_func=list_posts, defaults={'mode':'normal'})
+posts.add_url_rule('/admin/posts/', 'list', view_func=login_required(list_posts), defaults={'mode':'edit'})
