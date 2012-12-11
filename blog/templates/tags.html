@@ -1,0 +1,14 @@
+{% if tags %}
+<div class="tags">
+<h3> tags </h3>
+<ul>
+    {% for tag, count in tags.items() %}
+        {% if tag %}
+        <li><a class="tag{{ count % 5 }}" href="{{ url_for('posts.tags', tag=tag) }}">{{ tag }}</a></li>
+        {% else %}
+        <li><a class="tag{{ count % 5 }}" href="{{ url_for('posts.tags') }}">未分类</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>
+</div>
+{% endif %}

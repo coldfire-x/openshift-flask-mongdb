@@ -32,13 +32,16 @@
     <div class="container-fluid">
         <div class="row-fulid content">
             {% block sidebar %}
-                <div class="span3">
-                    <div class="">
-                        <img class="img-rounded" src="/static/images/pengfei.jpg">
-                    </div>
+                <div class="span2 imgcenter-wrapper">
+                    <img class="img-rounded" src="/static/images/pengfei.jpg">
+                    <h2>
+                        <span itemprop="name">@Beijing</span>
+                    </h2>
+                    <hr />
+                    {% include 'tags.html' %}
                 </div>
             {% endblock %}
-            <div class="span8">
+            <div class="span7 offset1">
                 {% block page_header %}{% endblock %}
                 {% block content %}{% endblock %}
             </div>
@@ -69,6 +72,7 @@
     <div class="hide">
         {% block js_footer %}
         {% endblock %}
+
         <script type="text/javascript">
             var _gaq = _gaq || [];
             _gaq.push(['_setAccount', 'UA-36753627-1']);

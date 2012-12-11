@@ -15,5 +15,12 @@
     </div>
     {% endfor %}
 
-    {{ paginate.render(pagination, 'posts.index') }}
+    {% if pagination.has_prev or pagination.has_next %}
+        {% if tags %}
+            {% set endpoint = 'posts.tags' %}
+        {% else %}
+            {% set endpoint = 'posts.index' %}
+        {% endif %}
+        {{ paginate.render(pagination, endpoint) }}
+    {% endif %}
 {% endblock %}
