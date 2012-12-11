@@ -16,7 +16,7 @@
     {% endfor %}
 
     {% if pagination.has_prev or pagination.has_next %}
-        {% if tags %}
+        {% if 'tag' in request.args %}
             {% set endpoint = 'posts.tags' %}
         {% else %}
             {% set endpoint = 'posts.index' %}
