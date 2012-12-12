@@ -123,3 +123,24 @@ form .clearfix.error .input-append .add-on {
     border-top: 1px solid #e5e5e5;
     background-color: #f5f5f5;
 }
+
+.fixed-at-bottom-right {
+    position:fixed;
+    bottom:20px;
+    right:0;
+}
+
+#cnbeta-rss {
+    width:241px;
+    right:-220px;
+}
+
+#cnbeta-rss:hover {
+    right:0;
+}
+
+.popover-title img {
+    width: 1.0em;
+    margin-top: 0.1em;
+    margin-right: 0.2em;
+}

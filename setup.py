@@ -17,5 +17,6 @@ setup(name='life-map',
         'WTForms==1.0.2',
         'Werkzeug==0.8.3',
         'argparse==1.2.1',
+        'feedparser==5.1.3',
       ],
      )

@@ -1,0 +1,26 @@
+<div id="cnbeta-rss" class="carousel slide fixed-at-bottom-right">
+    <!-- Carousel items -->
+    {% set tips = get_tips() %}
+    <div class="carousel-inner">
+        {% for tip in tips %}
+        <div class="item">
+            <h3 class="popover-title">
+                <img src="/static/images/horn.svg">
+                <a href="{{ tip.link }}" target="_blank">{{ tip.title }} </a>
+            </h3>
+            <div class="popover-content alert alert-info">
+            <p> {{ tip.content }} </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap-carousel.js"></script>
+    <script type="text/javascript">
+    $('.carousel').carousel({
+        interval: 1000,
+        pause: 'hover',
+    });
+    </script>
+</div>
