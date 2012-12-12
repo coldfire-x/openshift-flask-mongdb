@@ -18,12 +18,10 @@ db = MongoEngine(app)
 
 from blueprints.admin.views import admin
 from blueprints.posts.views import posts
+from blueprints.apis.views import apis
 app.register_blueprint(admin, url_prefix='/admin')
 app.register_blueprint(posts)
-
-@app.context_processor
-def inject_tips():
-    return dict(get_tips=utilities.get_cnbeta_feed)
+app.register_blueprint(apis, url_prefix='/apis')
 
 
 if __name__ == "__main__":

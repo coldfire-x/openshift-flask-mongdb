@@ -12,3 +12,6 @@ MONGODB_PORT = os.environ['OPENSHIFT_MONGODB_DB_PORT']
 
 # secret keys
 SECRET_KEY = '=5NO>NO>a"Tj4=^#~Co^T#fD_b!-&J'
+
+# cache timeout, 30 mins
+CACHE_TIMEOUT = 60 * 30
