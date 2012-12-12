@@ -1,3 +1,7 @@
+html, body {
+    height: 100%;
+}
+
 form .clearfix.error > label, 
 form .clearfix.error .help-block, 
 form .clearfix.error .help-inline {
@@ -23,31 +27,6 @@ form .clearfix.error .input-append .add-on {
     color: #b94a48;
     background-color: #fce6e6;
     border-color: #b94a48;
-}
-
-
-.footer {
-    margin-left: -20px;
-    margin-right: -20px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-.footer {
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
-
-/* Unfloat the back to top in footer to prevent odd text wrapping */
-.footer .pull-right {
-    float: none;
-}
-
-.footer {
-    padding: 10px 0;
-    margin-top: 15px;
-    border-top: 1px solid #e5e5e5;
-    background-color: #f5f5f5;
 }
 
 .font-cute {
@@ -110,3 +89,37 @@ form .clearfix.error .input-append .add-on {
 .tags .alt .tag4{background:#3277ad;}
 	.tags .alt .tag5{background:#266ca2;}
 /* // Tag cloud */
+
+/* footer */
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -60px;
+}
+
+#push,
+#footer {
+    height: 30px;
+}
+
+#push {
+    margin-top: 45px;
+}
+
+#footer {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/* Unfloat the back to top in footer to prevent odd text wrapping */
+#footer .pull-right {
+    float: none;
+}
+
+#footer {
+    padding: 10px 0;
+    margin-top: 15px;
+    border-top: 1px solid #e5e5e5;
+    background-color: #f5f5f5;
+}
