@@ -12,7 +12,7 @@ class Post(db.Document):
     title = db.StringField(max_length=255, required=True)
     slug = db.StringField(max_length=255, required=True)
     body = db.StringField(required=True)
-    tags = db.ListField(db.StringField(max_length=60), default=[])
+    tags = db.ListField(db.StringField(max_length=60), default=[u'未分类'])
     comments = db.ListField(db.EmbeddedDocumentField('Comment'))
 
     def get_absolute_url(self):
