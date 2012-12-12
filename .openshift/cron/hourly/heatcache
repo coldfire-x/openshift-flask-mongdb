@@ -1,0 +1,3 @@
+#!/bin/bash
+
+curl -I https://life-map.rhcloud.com/apis/cnbeta.json
