@@ -1,9 +1,9 @@
-{% macro render(pagination, endpoint) %}
+{% macro render(pagination, endpoint, tag) %}
 <div class="pagination pagination-centered">
     <ul>
     {% if pagination.has_prev %}
     <li>
-        <a href="{{ url_for(endpoint, page=pagination.page-1) }}">
+        <a href="{{ url_for(endpoint, page=pagination.page-1, tag=tag) }}">
             <span>Prev</span>
         </a>
     </li>
@@ -14,7 +14,7 @@
         {% if page %}
             {% if page != pagination.page %}
             <li>
-                <a href="{{ url_for(endpoint, page=page) }}"><span>{{ page }}</span></a>
+                <a href="{{ url_for(endpoint, page=page, tag=tag) }}"><span>{{ page }}</span></a>
             </li>
             {% else %}
             <li class="active">
@@ -25,7 +25,7 @@
     {%- endfor %}
     {% if pagination.has_next %}
     <li>
-        <a href="{{ url_for(endpoint, page=pagination.page+1) }}">
+        <a href="{{ url_for(endpoint, page=pagination.page+1, tag=tag) }}">
             <span>Next</span>
         </a>
     </li>

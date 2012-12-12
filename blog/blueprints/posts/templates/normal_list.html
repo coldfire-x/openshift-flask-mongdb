@@ -16,11 +16,11 @@
     {% endfor %}
 
     {% if pagination.has_prev or pagination.has_next %}
-        {% if 'tag' in request.args %}
+        {% if tag %}
             {% set endpoint = 'posts.tags' %}
         {% else %}
             {% set endpoint = 'posts.index' %}
         {% endif %}
-        {{ paginate.render(pagination, endpoint) }}
+        {{ paginate.render(pagination, endpoint, tag) }}
     {% endif %}
 {% endblock %}

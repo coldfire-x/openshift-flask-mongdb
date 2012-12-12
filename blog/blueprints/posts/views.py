@@ -23,18 +23,20 @@ def check_slug_uniq(slug):
 @posts.route('/')
 def index():
     page = request.args.get('page', 1)
+
     paginated_posts = Post.objects.paginate(page=int(page), per_page=6)
-    
     tags = Post.objects.item_frequencies('tags')
+
     return render_template('normal_list.html', pagination=paginated_posts, tags=tags)
 
-@posts.route('/tags/')
-def tags():
-    tag = request.args.get('tag', None)
-    paginated_posts = Post.objects(tags=tag).paginate(page=1, per_page=6)
+@posts.route('/tags/<tag>')
+def tags(tag):
+    page = request.args.get('page', 1)
 
+    paginated_posts = Post.objects(tags=tag).paginate(page=int(page), per_page=6)
     tags = Post.objects.item_frequencies('tags')
-    return render_template('normal_list.html', pagination=paginated_posts, tags=tags)
+
+    return render_template('normal_list.html', pagination=paginated_posts, tags=tags, tag=tag)
 
 
 @posts.route('/admin/posts/')
