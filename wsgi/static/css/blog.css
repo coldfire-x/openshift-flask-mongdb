@@ -144,3 +144,7 @@ form .clearfix.error .input-append .add-on {
     margin-top: 0.1em;
     margin-right: 0.2em;
 }
+
+.clean-a:hover {
+    text-decoration: none;
+}

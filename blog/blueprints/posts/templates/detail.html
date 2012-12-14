@@ -25,10 +25,14 @@
     <div class="span4">
         {% if post.tags %}
             {% for tag in post.tags %}
-                <strong><span class="label label-success">{{ tag }}</span></strong>
+                <a href="{{ url_for('posts.tags', tag=tag) }}" class="clean-a">
+                    <span class="label label-success">
+                    {{ tag }}
+                    </span>
+                </a>
             {% endfor %}
         {% else %}
-            <strong><span class="label label-info">未分类</span></strong>
+            <strong><span class="label label-info">打酱油</span></strong>
         {% endif %}
     </div>
 </div>
