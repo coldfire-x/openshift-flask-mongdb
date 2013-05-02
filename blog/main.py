@@ -25,4 +25,14 @@ app.register_blueprint(apis, url_prefix='/apis')
 
 
 if __name__ == "__main__":
-    app.run()
+    import logging
+    from werkzeug.serving import run_simple
+
+    app.logger.setLevel(logging.DEBUG)
+    logging.getLogger().setLevel(logging.DEBUG)
+    logging.info("Launching server at port %d", 5000)
+
+    run_simple('localhost', 5000, app, use_reloader=True,
+        passthrough_errors=True, threaded=True)
+
+    logging.info("Server sucessfully terminated")
