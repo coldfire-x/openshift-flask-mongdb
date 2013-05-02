@@ -1,14 +1,17 @@
+import time
 import functools
-import feedparser
 
+import feedparser
 from jinja2 import Markup
-from flask import request, session, url_for, redirect
+from flask import request, session, url_for, redirect, current_app
 
 
 def login_required(func):
     @functools.wraps(func)
     def wrappered_func(*args, **kwargs):
-        if not 'uid' in session:
+        if not all(session.get(key) for key in('uid', 'ts')) \
+            or (time.time() - session.get('ts') >
+                current_app.config['PERMANENT_SESSION_LIFETIME']):
             return redirect(url_for('admin.login'))
         return func(*args, **kwargs)
     return wrappered_func

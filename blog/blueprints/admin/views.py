@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 import hashlib
-from datetime import datetime
+import time
 
 import flask
 from flask import (Blueprint, request, redirect, session,
@@ -17,11 +17,7 @@ admin = Blueprint('admin', __name__, template_folder='templates')
 
 class AdminLogin(MethodView):
     def get(self):
-        if not 'uid' in session:
-            return render_template('login.html')
-        
-        else:
-            return redirect(url_for('.console'))
+        return render_template('login.html')
             
     def post(self):
         username = escape(request.form['username'])
@@ -31,6 +27,7 @@ class AdminLogin(MethodView):
         is_valid = Users.check_user_passwd(username, passwd_md5)
         if is_valid:
             session['uid'] = username
+            session['ts'] = time.time()
             return redirect(url_for('.console'))
 
         else:
