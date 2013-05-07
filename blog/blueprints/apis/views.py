@@ -25,12 +25,13 @@ class CnbetaFeedView(MethodView):
 class TagAutocomplete(MethodView):
     def get(self):
         term = request.args.get('term', None)
-        items = Post.objects(tags__icontains=term).only('tags')
+        items = Post.objects().only('tags')
 
         result = []
         for item in items:
             result.extend(item.tags)
-        result = list(set(result))
+        result = list(filter(lambda tag: term.lower() in tag.lower(),
+            set(result)))
 
         return jsonify(items=result)
 
