@@ -25,8 +25,14 @@ class CnbetaFeedView(MethodView):
 class TagAutocomplete(MethodView):
     def get(self):
         term = request.args.get('term', None)
-        items = Post.objects(slug__icontains=term).only('slug')
-        return jsonify(items=[item.slug for item in items])
+        items = Post.objects(tags__icontains=term).only('tags')
+
+        result = []
+        for item in items:
+            result.extend(item.tags)
+        result = list(set(result))
+
+        return jsonify(items=result)
 
 
 apis.add_url_rule('/cnbeta.json',
