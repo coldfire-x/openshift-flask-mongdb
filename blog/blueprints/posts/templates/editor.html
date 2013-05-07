@@ -6,7 +6,7 @@
     <div class="span3">
         <input class="input-block-level" type="text" name="title" placeholder="文章标题"></input>
         <input class="input-block-level" type="text" name="slug" placeholder="slug"></input>
-        <input class="input-block-level" type="text" name="tags" placeholder="标签"></input>
+        <input class="input-block-level" type="text" name="tags" id="tag-suggest" placeholder="标签"></input>
     </div>
     <textarea id="editor" name="body" rows="20" style="width: 60%;">
     </textarea>
@@ -16,10 +16,30 @@
 </form>
     
 <script src="/static/js/nicEdit-latest.js" type="text/javascript"></script>
+<script type="text/javascript" src="/static/js/jquery.js"></script>
 <script>
         bkLib.onDomLoaded(function() {
             new nicEditor({ fullPanel: true }).panelInstance('editor');
         });
+</script>
+<script>
+    $(function() {
+        $("#tag-suggest").autocomplete({
+            source: function(request, response) {
+                $.getJSON(
+                    "{{ url_for('apis.tagautocomplete') }}" + '?term=' + request.term,
+                    function(data) {
+                        if (data['items']) {
+                            return response(data['items']);
+                        }
+
+                        return response([]);
+                    }
+                );
+            },
+            minLength: 1,
+        });
+    });
 </script>
 </div>
 
