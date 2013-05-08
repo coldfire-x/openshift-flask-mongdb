@@ -1,8 +1,14 @@
 <div id="cnbeta-rss" class="carousel slide fixed-at-bottom-right">
     <!-- Carousel items -->
     <div class="carousel-inner" id='cnbeta-tips'>
+    <!-- Carousel nav -->
     </div>
-    
+
+    <div id="cnbeta-rss-bottom" class="carousel">
+        <a class="pull-left" id="move-left" data-slide="prev">下页</a>
+        <a class="pull-right" id="move-right" data-slide="next">上页</a>
+    </div>
+
     <script type="text/javascript" src="/static/js/jquery.js"></script>
     <script type="text/javascript" src="/static/js/bootstrap-carousel.js"></script>
     <script type="text/javascript">
@@ -30,10 +36,16 @@
             $('#cnbeta-tips').append(tips.join(' '));
         }
     );
+    $('.carousel').carousel({});
 
-    $('.carousel').carousel({
-        interval: 1000,
-        pause: 'hover',
+    $("#move-left").click(function() {
+        $('.carousel').carousel('prev');
+    });
+    $("#move-right").click(function() {
+        $('.carousel').carousel('next');
+    });
+    $("#cnbeta-tips").hover(function(){
+        $("#cnbeta-rss-bottom").show();
     });
     </script>
 </div>

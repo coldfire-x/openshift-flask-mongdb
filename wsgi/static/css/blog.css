@@ -148,3 +148,11 @@ form .clearfix.error .input-append .add-on {
 .clean-a:hover {
     text-decoration: none;
 }
+
+#cnbeta-rss-bottom {
+  height: 30px;
+  margin-top: -20px;
+  background-color: #f7f7f7;
+  line-height: 30px;
+  display:none;
+}
