@@ -27,7 +27,7 @@ def index():
     paginated_posts = Post.objects.paginate(page=int(page), per_page=6)
     tags = Post.objects.item_frequencies('tags')
 
-    return render_template('normal_list.html', pagination=paginated_posts, tags=tags)
+    return render_template('list_posts.html', pagination=paginated_posts, tags=tags)
 
 @posts.route('/tags/<tag>')
 def tags(tag):
@@ -36,14 +36,14 @@ def tags(tag):
     paginated_posts = Post.objects(tags=tag).paginate(page=int(page), per_page=6)
     tags = Post.objects.item_frequencies('tags')
 
-    return render_template('normal_list.html', pagination=paginated_posts, tags=tags, tag=tag)
+    return render_template('list_posts.html', pagination=paginated_posts, tags=tags, tag=tag)
 
 
 @posts.route('/admin/posts/')
 @login_required
 def list_posts():
     posts = Post.objects.all()
-    return render_template('edit_list.html', posts=posts)
+    return render_template('list_posts_for_editing.html', posts=posts)
 
 
 class DetailView(MethodView):

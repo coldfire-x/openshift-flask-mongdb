@@ -1,0 +1,22 @@
+{% block css_header %}
+<link href="/static/css/highlight/default.css" rel="stylesheet">
+{% endblock %}
+
+{% macro nicEditor() -%}
+<textarea id="editor" name="body" rows="20" style="width: 60%;">
+    {{ inner_body }}
+    {{ caller() }}
+</textarea>
+
+<script src="/static/js/nicEdit-latest.js" type="text/javascript"></script>
+<script>
+        bkLib.onDomLoaded(function() {
+            new nicEditor({ fullPanel: true }).panelInstance('editor');
+        });
+</script>
+
+<!-- syntax highlight -->
+<script src="/static/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+{%- endmacro %}

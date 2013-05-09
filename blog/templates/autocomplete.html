@@ -1,0 +1,21 @@
+{% macro autocomplete(elem_id, minlenght_in=1) -%}
+<script>
+    $(function() {
+        $({{ elem_id }}).autocomplete({
+            source: function(request, response) {
+                $.getJSON(
+                    "{{ url_for('apis.tagautocomplete') }}" + '?term=' + request.term,
+                    function(data) {
+                        if (data['items']) {
+                            return response(data['items']);
+                        }
+
+                        return response([]);
+                    }
+                );
+            },
+            minLength: {{ minlenght_in }},
+        });
+    });
+</script>
+{%- endmacro %}
